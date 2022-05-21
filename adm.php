@@ -2,4 +2,5 @@
 include "bootstrap/init.php";
 
 
-include "tpl/tpl-index.php";
+include "tpl/tpl-adm-auth.php";
+
