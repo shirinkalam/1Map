@@ -1,3 +1,6 @@
+<?php
+    use Hekmatinasser\Verta\Verta;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,6 +41,8 @@
         color: #686868;
         border: 0;
         padding: 3px 12px;
+        text-align: center;
+        min-width: 70px;
         border-radius: 20px;
         cursor: pointer;
         font-size: 13px;
@@ -83,8 +88,8 @@
         <h1>پنل مدیریت <span style="color:#007bec">سون مپ</span></h1>
         <div class="box">
             <a class="statusToggle" href="<?=BASE_URL?>" target="_blank">🏠</a>
-            <a class="statusToggle active" href="?status=1">فعال</a>
-            <a class="statusToggle" href="?status=0">غیرفعال</a>
+            <a class="statusToggle active" href="?verified=1">فعال</a>
+            <a class="statusToggle" href="?verified=0">غیرفعال</a>
             <a class="statusToggle" href="?logout=1" style="float:left" target="_blank">خروج</a>
         </div>
         <div class="box">
@@ -99,19 +104,18 @@
         </tr>
         </thead>
         <tbody>
-        <?php for($i=0;$i<10;$i++): ?>
+        <?php foreach($locations as $loc): ?>
         <tr>
-            <td>نام مکان اینجا</td>
-            <td class="text-center">12 خرداد 95</td>
-            <td class="text-center">25.454</td>
-            <td class="text-center">34.456</td>
+            <td><?=$loc->title ?></td>
+            <td class="text-center"><?= Verta::instance($loc->created_at)->format('%d %B %Y');?></td>
+            <td class="text-center"><?=$loc->lat ?></td>
+            <td class="text-center"><?=$loc->lng ?></td>
             <td>
-                <button class="statusToggle active" data-loc='111'>فعال</button> 
-                <button class="statusToggle" data-loc='111'>غیر فعال</button> 
-                <button class="preview" data-loc='111'>👁️‍🗨️</button> 
+                <button class="statusToggle <?=$loc->verified ? 'active':'' ?>" data-loc='<?=$loc->id?>'><?=$loc->verified ? 'فعال':'غیرفعال' ?></button> 
+                <button class="preview" data-loc='<?=$loc->id?>'>👁️‍🗨️</button> 
             </td>
         </tr>
-<?php endfor; ?>        
+        <?php endforeach; ?>        
         </tbody>
         </table>
         </div>
@@ -119,7 +123,7 @@
     </div>
 
     <div class="modal-overlay" style="display: none;">
-        <div class="modal">
+        <div class="modal" style=" width: 70%; height: 300px;">
             <span class="close">x</span>
             <div class="modal-content">
                 <iframe id='mapWivdow' src="#" frameborder="0"></iframe>

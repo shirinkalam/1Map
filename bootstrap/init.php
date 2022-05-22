@@ -2,6 +2,7 @@
 session_start();
 include "constans.php";
 include BASE_PATH . "bootstrap/config.php";
+include BASE_PATH . "vendor/autoload.php";
 include BASE_PATH . "libs/helpers.php";
 
 
@@ -13,5 +14,5 @@ try{
     diePage('connection faild: '. $e->getMessage());
 }
 
-include BASE_PATH . "libs/lib-locations.php";
 include BASE_PATH . "libs/lib-users.php";
+include BASE_PATH . "libs/lib-locations.php";
