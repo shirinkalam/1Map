@@ -55,6 +55,10 @@
         background: #0c8f10;
         color: #ffffff;
     }
+    .statusToggle.all {
+        background: #007bec;
+        color: #ffffff;
+    }
     .statusToggle:hover,button.preview:hover {
         opacity: 0.7;
     }
@@ -88,6 +92,7 @@
         <h1>پنل مدیریت <span style="color:#007bec">سون مپ</span></h1>
         <div class="box">
             <a class="statusToggle" href="<?=BASE_URL?>" target="_blank">🏠</a>
+            <a class="statusToggle active all" href="<?=BASE_URL?>adm.php">همه ی مکان ها</a>
             <a class="statusToggle active" href="?verified=1">فعال</a>
             <a class="statusToggle" href="?verified=0">غیرفعال</a>
             <a class="statusToggle" href="?logout=1" style="float:left" target="_blank">خروج</a>
@@ -111,7 +116,7 @@
             <td class="text-center"><?=$loc->lat ?></td>
             <td class="text-center"><?=$loc->lng ?></td>
             <td>
-                <button class="statusToggle <?=$loc->verified ? 'active':'' ?>" data-loc='<?=$loc->id?>'><?=$loc->verified ? 'فعال':'غیرفعال' ?></button> 
+                <button class="statusToggle <?=$loc->verified ? 'active':'' ?>" data-loc='<?=$loc->id?>'>تایید</button> 
                 <button class="preview" data-loc='<?=$loc->id?>'>👁️‍🗨️</button> 
             </td>
         </tr>
@@ -138,11 +143,30 @@
     $(document).ready(function() {
         $('.preview').click(function() {
             $('.modal-overlay').fadeIn();
-            $('#mapWivdow').attr('src','<?=BASE_URL?>');
+            $('#mapWivdow').attr('src','<?=BASE_URL?>?loc=' +$(this).attr('data-loc'));
         });
+
+        
+        $('.statusToggle').click(function() {
+            const btn=$(this);
+
+            $.ajax({
+                url:'<?=BASE_URL . 'process/statusToggle.php' ?>',
+                method:'post',
+                data:{loc:btn.attr('data-loc')},
+                success:function(response){
+                    if(response==1){
+                        btn.toggleClass('active');
+                    }
+                }
+            });
+        });
+
+
         $('.modal-overlay .close').click(function() {
             $('.modal-overlay').fadeOut();
         });
+        
     });
     </script>
 </body>

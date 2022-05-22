@@ -23,8 +23,8 @@ let tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}
 
 // show and pin markers
 
-L.marker(defaultLocation).addTo(map).bindPopup("7Learn Office 1").openPopup();
-L.marker([35.712,50.338]).addTo(map).bindPopup("7Learn Office 2");
+// L.marker(defaultLocation).addTo(map).bindPopup("7Learn Office 1").openPopup();
+// L.marker([35.712,50.338]).addTo(map).bindPopup("7Learn Office 2");
 
 // map.on('popupopen',function(){
 //     alert('popup opened')
