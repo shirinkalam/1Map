@@ -63,9 +63,9 @@ map.on('locationfound',function(e){
         map.removeLayer(current_accuracy);
 
     }
-    var radius=e.accuracy / 2;
+    var radius=e.accuracy;
     current_position = L.marker(e.latlng).addTo(map)
-    .bindPopup("you are within"+radius+"meters from this point").openPopup();
+    .bindPopup("دقت تقریبی"+radius+"متر").openPopup();
     current_accuracy = L.circle(e.latlng,radius).addTo(map);
 
 });
